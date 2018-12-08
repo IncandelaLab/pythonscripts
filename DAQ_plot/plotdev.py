@@ -53,7 +53,7 @@ C_G18  = [[0,128,256],[0,100,200],[0,255]]
 
 CWD    = os.getcwd()
 FOLDERS  = 'trial{}'
-TRIALS   = ["051118","131118","141118","151118","161118","191118","201118","211118","271118","051218"]
+TRIALS   = ["051118","131118","141118","151118","161118","191118","201118","211118","271118","051218","071218"]
 PFOLDERS = 'RUN_{}_{}_plots'
 
 FILE   = 'rms_summary_sca_1.txt'
@@ -400,10 +400,38 @@ RUNS_T9 = {
 	"1331":"600V",
 	"1341":"0V (after)",
 	"1343":"No connection to keithley",
+
+	"1629":"M58 no connection",
+	"1633":"M58 keithley off",
+	"1637":"M58 0V trial 1",
+	"1646":"M58 0V trial 2",
+	"1650":"M58 10V",
+	"1652":"M58 20V",
+	"1656":"M58 30V",
+	"1702":"M58 40V",
+	"1707":"M58 50V",
 }
 
+RUNS_T10 = {
+	"1252":"No keithley cxn (1)",
+	"1259":"No keithley cxn (2)",
+	"1302":"Keithley off (1)",
+	"1304":"Keithley off (2)",
+	"1307":"0V (1)",
+	"1309":"0V (2)",
+	"1316":"10V 5m",
+	"1341":"10V 30m",
+	"1351":"30V 5m",
+	"1416":"30V 30m",
+	"1426":"50V 5m",
+	"1451":"50V 30m",
+	"1501":"100V 5m",
+	"1526":"100V 30m",
+	"1535":"150V 5m",
+	"1601":"150V 30m",
+}
 
-RUNS = [RUNS_T0,RUNS_T1,RUNS_T2,RUNS_T3,RUNS_T4,RUNS_T5,RUNS_T6,RUNS_T7,RUNS_T8,RUNS_T9]
+RUNS = [RUNS_T0,RUNS_T1,RUNS_T2,RUNS_T3,RUNS_T4,RUNS_T5,RUNS_T6,RUNS_T7,RUNS_T8,RUNS_T9,RUNS_T10]
 
 #IGNORE_CHANNELS = [[0,0],[1,0],[2,2],[0,28],[3,60],[2,0],[2,4]]
 IGNORE_CHANNELS = [
@@ -573,10 +601,23 @@ V_T9_S1    = [-5,5,100,150,200,250,300,350,400,450,500,600]
 RUNS_T9_S2 = ["1249","1254","1341","1258","1302","1305","1307","1309","1312","1318","1322","1325","1327","1331","1343"]
 V_T9_S2    = [-5,0,5,50,100,150,200,250,300,350,400,450,500,600,-50]
 
+RUNS_T9_M58 = ["1629","1633","1637","1646","1650","1652","1656","1702","1707"]
+V_T9_M58 = [-20,-10,-1,1,10,20,30,40,50]
+
+RUNS_T10_ALL = ["1252","1259","1302","1304","1307","1309","1316","1341","1351","1416","1426","1451","1501","1526","1535","1601"]
+RUNS_T10_UNB = ["1252","1259","1302","1304","1307","1309"]
+RUNS_T10_B   = ["1316","1341","1351","1416","1426","1451","1501","1526","1535","1601"]
+RUNS_T10_5m  = RUNS_T10_B[0::2]
+RUNS_T10_30m = RUNS_T10_B[1::2]
 
 
-usemeans = True
+usemeans = False
 show_errorbars = True
+
+plot_runs(RUNS_T10_ALL, cg_perm(C_G18) , plot_raw=False, xlist=None, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='Trial', suptitle="Module 58", labels=True, trial=10)
+
+
+plot_runs(RUNS_T9_M58, cg_perm(C_G18) , plot_raw=False, xlist=V_T9_M58, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle="Module 58", labels=True, trial=9)
 
 suptitle = 'Channel {} distribution vs. bias voltage'.format("mean" if usemeans else "RMS")
 
