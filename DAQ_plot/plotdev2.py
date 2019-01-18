@@ -72,7 +72,58 @@ RUNS_T11 = {
 	"181218_1638":"V1 PCB6",# - 181218_1638",
 }
 
-RUNS = [None]*11 + [RUNS_T11]
+RUNS_T12 = {
+	"160119_1506":"interposer",
+	"160119_1623":"no interposer", # all runs below this are without interposer
+
+	"170119_1107":"generator disconnected", # below runs are no HPF, 250mV noise
+	"170119_1112":"generator off",          #
+	"170119_1114":"generator output off",   #
+	"170119_1117":"1Hz",                    #
+	"170119_1119":"10Hz",                   #
+	"170119_1121":"100Hz",                  #
+	"170119_1122":"1kHz",                   #
+	"170119_1124":"10kHz",                  #
+	"170119_1126":"100kHz",                 #
+	"170119_1128":"1MHz",                   #
+	"170119_1129":"10MHz",                  #
+
+	"170119_1555":"generator disconnected", # below runs are 159.2Hz HPF, 250mV noise
+	"170119_1557":"generator off",          #
+	"170119_1559":"generator output off",   #
+	"170119_1601":"1Hz",                    #
+	"170119_1604":"10Hz",                   #
+	"170119_1607":"100Hz",                  #
+	"170119_1611":"1kHz",                   #
+	"170119_1613":"10kHz",                  #
+	"170119_1615":"100kHz",                 #
+	"170119_1616":"1MHz",                   #
+	"170119_1618":"10MHz",                  #
+
+	"180119_1021":"No f’n gen cxn",      # 5kHz BNC in-line HPF
+	"180119_1026":"F’n gen off",         # set 1
+	"180119_1028":"F’n gen output off",  #
+	"180119_1035":"1Hz",                 #
+	"180119_1037":"10Hz",                #
+	"180119_1039":"100Hz",               #
+	"180119_1041":"1kHz",                #
+	"180119_1043":"10kHz",               #
+	"180119_1045":"1MHz",                #
+	"180119_1047":"10MHz",               #
+
+	"180119_1023":"No f’n gen cxn",      # set 2
+	"180119_1027":"F’n gen off",         #
+	"180119_1034":"F’n gen output off",  #
+	"180119_1036":"1Hz",                 #
+	"180119_1038":"10Hz",                #
+	"180119_1040":"100Hz",               #
+	"180119_1042":"1kHz",                #
+	"180119_1044":"10kHz",               #
+	"180119_1046":"1MHz",                #
+	"180119_1048":"10MHz",               #
+}
+
+RUNS = [None]*11 + [RUNS_T11, RUNS_T12]
 
 #IGNORE_CHANNELS = [[0,0],[1,0],[2,2],[0,28],[3,60],[2,0],[2,4]]
 IGNORE_CHANNELS = [
@@ -171,13 +222,36 @@ RUNS_T11_V2 = ["171218_1048","171218_1045","171218_1028","171218_1051","171218_1
 RUNS_T11_GOOD = ["181218_1658","181218_1653","181218_1648","171218_1048","171218_1045","171218_1028","171218_1051","171218_1054","171218_1042"]
 RUNS_T11_ALL = [_ for _ in RUNS_T11.keys()]
 
+RUNS_T12_INTER = ["160119_1506","160119_1623"]
+RUNS_T12_NOHPF = ["170119_1107","170119_1112","170119_1114","170119_1117","170119_1119",              "170119_1122","170119_1124",              "170119_1128","170119_1129"]
+RUNS_T12_HPF   = ["170119_1555",              "170119_1559","170119_1601","170119_1604",              "170119_1611","170119_1613","170119_1615","170119_1616","170119_1618"]
+RUNS_T12_5K_1  = ["180119_1021","180119_1026","180119_1028","180119_1035","180119_1037","180119_1039","180119_1041","180119_1043","180119_1045","180119_1047"]
+RUNS_T12_5K_2  = ["180119_1023","180119_1027","180119_1034","180119_1036","180119_1038","180119_1040","180119_1042","180119_1044","180119_1046","180119_1048"]
+T12_FRQ        = [1,10,100,1000,10000,100000,1000000,10000000]
+T12_FRQ_NOHPF  = [1,10,    1000,10000,       1000000,10000000]
+T12_FRQ_HPF    = [1,10,100,1000,10000,       1000000,10000000]
+
 
 usemeans = False
 show_errorbars = True
 
 
+plot_runs(RUNS_T12_INTER, cg_list(COLS_2), plot_raw=False, xlist=[0,1], means=usemeans, mean_marker='o',show_errorbars=show_errorbars,xlabel='',suptitle='interposer coparison',labels=True,trial=12)
+
+plot_runs(RUNS_T12_NOHPF[:3], cg_list(CBLACK ), plot_raw=False, xlist=[0.0,1.0,2.0], means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='', suptitle='antenna effect', labels=False, xlog=False, ylog=False, cxn=True, cxnlabel='no HPF'         , trial=12, show=False)
+plot_runs(RUNS_T12_HPF[:2]  , cg_list(CRED   ), plot_raw=False, xlist=[0.1,    2.1], means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='', suptitle='antenna effect', labels=False, xlog=False, ylog=False, cxn=True, cxnlabel='160Hz HPF'      , trial=12, show=False)
+plot_runs(RUNS_T12_5K_1[:3] , cg_list(CGREEN ), plot_raw=False, xlist=[0.2,1.2,2.2], means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='', suptitle='antenna effect', labels=False, xlog=False, ylog=False, cxn=True, cxnlabel='5kHz HPF, Set 1', trial=12, show=False)
+plot_runs(RUNS_T12_5K_2[:3] , cg_list(CBLUE  ), plot_raw=False, xlist=[0.3,1.3,2.3], means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='', suptitle='antenna effect', labels=False, xlog=False, ylog=False, cxn=True, cxnlabel='5kHz HPF, Set 2', trial=12)
+
+plot_runs(RUNS_T12_NOHPF[3:], cg_list(CBLACK ), plot_raw=False, xlist=T12_FRQ_NOHPF, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='frequency', suptitle='250mV noise', labels=False, xlog=True, ylog=True, cxn=True, cxnlabel='no HPF'   , trial=12, show=False)
+plot_runs(RUNS_T12_HPF[2:]  , cg_list(CRED   ), plot_raw=False, xlist=T12_FRQ_HPF  , means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='frequency', suptitle='250mV noise', labels=False, xlog=True, ylog=True, cxn=True, cxnlabel='160Hz HPF', trial=12, show=False)
+plot_runs(RUNS_T12_5K_1[3:] , cg_list(CGREEN ), plot_raw=False, xlist=T12_FRQ_HPF  , means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='frequency', suptitle='250mV noise', labels=False, xlog=True, ylog=True, cxn=True, cxnlabel='5kHz HPF, Set 1', trial=12,show=False)
+plot_runs(RUNS_T12_5K_2[3:] , cg_list(CBLUE  ), plot_raw=False, xlist=T12_FRQ_HPF  , means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='frequency', suptitle='250mV noise', labels=False, xlog=True, ylog=True, cxn=True, cxnlabel='5kHz HPF, Set 2', trial=12)
+
+
+
 #plot_runs(RUNS_T11_GOOD, cg_perm(COLS_12), plot_raw=False, xlist=None, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='', suptitle='Good 8" PCBs', labels=True, trial=11, ncol=2)
-plot_runs(["171218_1042"], cg_list(CBLACK), plot_raw=False, xlist=None, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='', suptitle='V2 PCB6', labels=True, trial=11)
+#plot_runs(["171218_1042"], cg_list(CBLACK), plot_raw=False, xlist=None, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='', suptitle='V2 PCB6', labels=True, trial=11)
 
 # plot_runs(RUNS_T10_ALL, cg_perm(C_G18) , plot_raw=False, xlist=None, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='Trial', suptitle="Module 58", labels=True, trial=10)
 
