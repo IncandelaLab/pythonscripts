@@ -614,16 +614,16 @@ RUNS_T10_30m = RUNS_T10_B[1::2]
 usemeans = False
 show_errorbars = True
 
-plot_runs(RUNS_T10_ALL, cg_perm(C_G18) , plot_raw=False, xlist=None, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='Trial', suptitle="Module 58", labels=True, trial=10)
+# plot_runs(RUNS_T10_ALL, cg_perm(C_G18) , plot_raw=False, xlist=None, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='Trial', suptitle="Module 58", labels=True, trial=10)
 
 
-plot_runs(RUNS_T9_M58, cg_perm(C_G18) , plot_raw=False, xlist=V_T9_M58, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle="Module 58", labels=True, trial=9)
+# plot_runs(RUNS_T9_M58, cg_perm(C_G18) , plot_raw=False, xlist=V_T9_M58, means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle="Module 58", labels=True, trial=9)
 
-suptitle = 'Channel {} distribution vs. bias voltage'.format("mean" if usemeans else "RMS")
+# suptitle = 'Channel {} distribution vs. bias voltage'.format("mean" if usemeans else "RMS")
 
-plot_runs(RUNS_T9_S2[-1:] , cg_list(CBLACK), plot_raw=False, xlist=V_T9_S2[-1:] , means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle='', labels="No keithley connection", trial=9, show=False)
-plot_runs(RUNS_T9_S2[:3]  , cg_list(CRED), plot_raw=False, xlist=V_T9_S2[:3]  , means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle='', labels=False, cxn=True, cxnlabel="Zero bias voltage", trial=9, show=False)
-plot_runs(RUNS_T9_S2[3:-1], cg_list(CBLUE) , plot_raw=False, xlist=V_T9_S2[3:-1], means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle=suptitle, labels=False, cxn=True, cxnlabel='Biased', trial=9)
+# plot_runs(RUNS_T9_S2[-1:] , cg_list(CBLACK), plot_raw=False, xlist=V_T9_S2[-1:] , means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle='', labels="No keithley connection", trial=9, show=False)
+# plot_runs(RUNS_T9_S2[:3]  , cg_list(CRED), plot_raw=False, xlist=V_T9_S2[:3]  , means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle='', labels=False, cxn=True, cxnlabel="Zero bias voltage", trial=9, show=False)
+# plot_runs(RUNS_T9_S2[3:-1], cg_list(CBLUE) , plot_raw=False, xlist=V_T9_S2[3:-1], means=usemeans, mean_marker='o', show_errorbars=show_errorbars, xlabel='bias voltage', suptitle=suptitle, labels=False, cxn=True, cxnlabel='Biased', trial=9)
 
 
 
@@ -658,12 +658,12 @@ if plot_amp_response:
 	plot_runs(RUNS_T1_1MHZ_AMP, cg_list(CRED)  , xlist=AMPS, trial=1, means=True, xlog=True, labels=False, ylog=True, basex=10, show_errorbars=True, mean_marker='o', cxn=True, cxnlabel="1 MHz noise", show=False)
 	plot_runs(RUNS_T1_1KHZ_AMP, cg_list(CGREEN), xlist=AMPS, trial=1, means=True, xlog=True, labels=False, ylog=True, basex=10, show_errorbars=True, mean_marker='o', cxn=True, cxnlabel="1 KHz noise", show=True, suptitle="Mean of Channel RMS - Amplitude Dependence", xlabel="Noise Amplitude (mV)")
 
-plot_freq_response = False
+plot_freq_response = True
 if plot_freq_response:
-	plot_runs(RUNS_T1_FRQ   , cg_list(CRED)  , xlist = T1_FRQS  , means=True, trial=1, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel=None, show=False)
-	plot_runs(RUNS_T2_FRQ   , cg_list(CRED)  , xlist = T2_FRQS  , means=True, trial=2, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel="cable 1", show=False)
-	plot_runs(RUNS_T5_C2[3:], cg_list(CGREEN), xlist = T5_FRQS_2, means=True, trial=5, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel="cable 3", show=False)
-	plot_runs(RUNS_T5_C3[3:], cg_list(CBLUE) , xlist = T5_FRQS  , means=True, trial=5, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel="cable 4", suptitle="Mean of Channel RMS - Frequency Dependence", xlabel="signal frequency (Hz)", show=True)
+	plot_runs(RUNS_T1_FRQ   , cg_list(CBLACK)  , xlist = T1_FRQS  , means=False, trial=1, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel=None, show=False)
+	plot_runs(RUNS_T2_FRQ   , cg_list(CRED  )  , xlist = T2_FRQS  , means=False, trial=2, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel="cable 1", show=False)
+	plot_runs(RUNS_T5_C2[3:], cg_list(CGREEN), xlist = T5_FRQS_2, means=False, trial=5, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel="cable 3", show=False)
+	plot_runs(RUNS_T5_C3[3:], cg_list(CBLUE) , xlist = T5_FRQS  , means=False, trial=5, xlog=True, ylog=True, show_errorbars=False, labels=False, mean_marker='o', cxn=True, cxnlabel="cable 4", suptitle="Mean of Channel RMS - Frequency Dependence", xlabel="signal frequency (Hz)", show=True)
 
 plot_antenna_test = False
 if plot_antenna_test:
